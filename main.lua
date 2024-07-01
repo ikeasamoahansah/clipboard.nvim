@@ -5,13 +5,16 @@ local config = require("telescope.config").values
 local previewers = require("telescope.previewers")
 local utils = require("telescope.previewers.utils")
 
+local function get_clipboard_cont()
+    local clipboard = vim.fn.getreg("+")
+    return clipboard
+end
+
 M.show_clipboard = function()
     pickers
         .new(opts, {
-            finder = finders.new_async_job({
-                command_generator = function()
-                    return {"ls"}
-                end,
+            finder = finders.new_table({
+                results = {"Clipboard content"},
 
                 entry_maker = function(entry)
                     return {
@@ -26,14 +29,15 @@ M.show_clipboard = function()
             previewer = previewers.new_buffer_previewer({
                 title = "Check Clipboard Entries",
                 define_preview = function (self, entry)
+                    local clipboard_content = get_clipboard_cont()
                     vim.api.nvim_buf_set_lines(
                         self.state.bufnr,
                         0,
-                        0,
-                        true,
+                        -1,
+                        false,
                         vim.tbl_flatten({
-                            "```lua",
-                            vim.split(vim.inspect(entry.value), '\n'),
+                            "``` lua",
+                            vim.split(clipboard_content, "\n"),
                             "```",
                         })
                     )
