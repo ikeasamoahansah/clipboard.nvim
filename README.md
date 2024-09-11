@@ -1,8 +1,8 @@
                      
-<h1 align="center" style="font-weight: bold;">clipboard.nvim</h1>
+<h1 align="center" style="font-weight: bold;">clipboard.nvim ✂️</h1>
 
 
-<p align="center">Simple description of what your project do or how to use it</p>
+<p align="center">A plugin for viewing recently yanked scripts</p>
 
 
  
@@ -11,9 +11,8 @@
 Here you describe how to run your project locally
  
  
-<h3>Cloning</h3>
 
-How to clone your project
+Clone the project
 
 ```bash
 git clone https://www.github.com/ikeasamoahansah/clipboard.nvim
