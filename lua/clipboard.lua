@@ -58,7 +58,6 @@ end
 
 function M.setup()
     vim.api.nvim_create_autocmd("TextYankPost", {
-        pattern = "*",
         callback = update_clipboard_history
     })
 
