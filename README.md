@@ -14,6 +14,8 @@ Here you describe how to run your project locally
 
 ### Setup
 
+Lazy.nvim 
+
 ```lua
 return{
     'ikeasamoahansah/clipboard.nvim',
