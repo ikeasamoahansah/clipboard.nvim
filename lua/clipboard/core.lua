@@ -1,24 +1,28 @@
 local M = {}
+
+local pickers = require("telescope.pickers")
+local finders = require("telescope.finders")
+local config = require("telescope.config").values
+local previewers = require("telescope.previewers")
+local utils = require("telescope.previewers.utils")
+local actions = require("telescope.actions")
+local action_state = require("telescope.actions.state")
+local clipconf = require("clipboard.config")
+
 local clipboard_history = {}
 
-local function update_clipboard_history()
+local hist_num = clipconf.values.text_hist_num
+
+function M.update_clipboard_history()
 	local clipboard_content = vim.fn.getreg("0")
 
 	table.insert(clipboard_history, 1, clipboard_content)
-	if #clipboard_history > 10 then
-		table.remove(clipboard_history, 11)
+	if #clipboard_history > hist_num then
+		table.remove(clipboard_history, hist_num + 1)
 	end
 end
 
-local function show_clipboard(opts)
-	local pickers = require("telescope.pickers")
-	local finders = require("telescope.finders")
-	local config = require("telescope.config").values
-	local previewers = require("telescope.previewers")
-	local utils = require("telescope.previewers.utils")
-	local actions = require("telescope.actions")
-	local action_state = require("telescope.actions.state")
-
+function M.show_clipboard(opts)
 	opts = opts or {}
 
 	pickers
@@ -29,7 +33,7 @@ local function show_clipboard(opts)
 				entry_maker = function(entry)
 					return {
 						value = entry,
-						display = "0",
+						display = entry:sub(1, 10),
 						ordinal = entry,
 					}
 				end,
@@ -51,21 +55,13 @@ local function show_clipboard(opts)
 					actions.close(prompt_bufnr)
 
 					-- put the selected yanked snippet in " register for pasting with p/P
-					vim.fn.setreg("+", entry.value)
+					vim.fn.setreg("0", entry.value)
 				end)
 
 				return true
 			end,
 		})
 		:find()
-end
-
-function M.setup()
-	vim.api.nvim_create_autocmd("TextYankPost", {
-		callback = update_clipboard_history,
-	})
-
-	vim.api.nvim_create_user_command("YankH", show_clipboard, {})
 end
 
 return M
