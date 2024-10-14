@@ -14,12 +14,13 @@ local clipboard_history = {}
 local hist_num = clipconf.values.text_hist_num
 
 function M.update_clipboard_history()
-	local clipboard_content = vim.fn.getreg("0")
-
-	table.insert(clipboard_history, 1, clipboard_content)
-	if #clipboard_history > hist_num then
-		table.remove(clipboard_history, hist_num + 1)
-	end
+	  local clipboard_content = vim.fn.getreg("0")
+    if clipboard_content ~= clipboard_history[1] then
+        table.insert(clipboard_history, 1, clipboard_content)
+    end
+	  if #clipboard_history > hist_num then
+		    table.remove(clipboard_history, hist_num + 1)
+	  end
 end
 
 function M.show_clipboard(opts)
