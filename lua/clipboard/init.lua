@@ -3,11 +3,11 @@ local M = {}
 local config = require("clipboard.config")
 local core = require("clipboard.core")
 
-local function setup_commands(opts)
+local function setup_commands()
     vim.api.nvim_create_autocmd("TextYankPost", {
-		    callback = function () core.update_clipboard_history(opts) end,
+		    callback = core.update_clipboard_history,
     })
-    vim.api.nvim_create_user_command(opts.command_yank_history, core.show_clipboard, {})
+    vim.api.nvim_create_user_command(config.values.command_yank_history, core.show_clipboard, {})
 end
 
 
@@ -16,7 +16,7 @@ end
 ---@param opts Config
 function M.setup(opts)
     config.setup(opts)
-    setup_commands(opts)
+    setup_commands()
 end
 
 return M
