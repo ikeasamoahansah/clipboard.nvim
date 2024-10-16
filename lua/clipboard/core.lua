@@ -1,20 +1,11 @@
 local M = {}
 
-local pickers = require("telescope.pickers")
-local finders = require("telescope.finders")
-local config = require("telescope.config").values
-local previewers = require("telescope.previewers")
-local utils = require("telescope.previewers.utils")
-local actions = require("telescope.actions")
-local action_state = require("telescope.actions.state")
-local clipconf = require("clipboard.config")
-
 local clipboard_history = {}
-
-local hist_num = clipconf.values.text_hist_num
 
 function M.update_clipboard_history()
 	  local clipboard_content = vim.fn.getreg("0")
+    local clipconf = require("clipboard.config")
+    local hist_num = clipconf.values.text_hist_num
     if clipboard_content ~= clipboard_history[1] then
         table.insert(clipboard_history, 1, clipboard_content)
     end
@@ -24,7 +15,14 @@ function M.update_clipboard_history()
 end
 
 function M.show_clipboard(opts)
-	opts = opts or {}
+	  local pickers = require("telescope.pickers")
+    local finders = require("telescope.finders")
+    local config = require("telescope.config").values
+    local previewers = require("telescope.previewers")
+    local utils = require("telescope.previewers.utils")
+    local actions = require("telescope.actions")
+    local action_state = require("telescope.actions.state")
+    opts = opts or {}
 
 	pickers
 		.new(opts, {

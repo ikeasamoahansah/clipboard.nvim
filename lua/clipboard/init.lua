@@ -12,8 +12,8 @@ end
 
 
 
--- intialize plugin
--- @param opts Config
+--- intialize plugin
+---@param opts Config
 function M.setup(opts)
     config.setup(opts)
     setup_commands()
