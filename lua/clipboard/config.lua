@@ -2,19 +2,13 @@ local M = {}
 
 ---@type Config
 M.values = {
-    text_hist_num = 10,
+    history_size = 10,
     command_yank_history = "YankH"
 }
 
----@param opts Config
-function M.setup(opts)
-    if opts then
-        for k, v in pairs(opts) do
-            if M.values[k] ~= nil then
-                M.values[k] = v
-            end
-        end
-    end
+---@param user_config Config
+function M.setup(user_config)
+   M.values = vim.tbl_deep_extend("force", M.values, user_config or {})
 end
 
 return M

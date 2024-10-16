@@ -1,3 +1,3 @@
 ---@class Config
----@field text_hist_num number Number of scripts to store (default: 10)
+---@field history_size number Number of scripts to store (default: 10)
 ---@field command_yank_history string Display clipboard (default: "YankH")
