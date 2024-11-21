@@ -44,7 +44,7 @@ use ```:YankH ``` to view history of yanked scripts
 require("clipboard").setup({
   -- You can customize here
 
-  text_hist_num = 10, -- number of yanked scripts to store
+  history_size = 10, -- number of yanked scripts to store
   command_yank_history = "YankH", -- custom command to open the clipboard menu
 })
 ```
