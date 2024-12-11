@@ -9,8 +9,8 @@ function M.update_clipboard_history()
     if clipboard_content ~= clipboard_history[1] then
         table.insert(clipboard_history, 1, clipboard_content)
     end
-    if #clipboard_history > history_size then
-        table.remove(clipboard_history, history_size + 1)
+    while #clipboard_history > history_size do
+        table.remove(clipboard_history)
     end
 end
 
@@ -32,7 +32,7 @@ function M.show_clipboard(opts)
                 entry_maker = function(entry)
                     return {
                         value = entry,
-                        display = entry:sub(1, 10),
+                        display = entry,
                         ordinal = entry,
                     }
                 end,
