@@ -30,9 +30,10 @@ function M.show_clipboard(opts)
                 results = clipboard_history,
 
                 entry_maker = function(entry)
+                    local trimmed_entry = string.gsub(entry, "^%s*(.-)%s*$", "%1")
                     return {
                         value = entry,
-                        display = entry,
+                        display = trimmed_entry:sub(1, 5),
                         ordinal = entry,
                     }
                 end,
