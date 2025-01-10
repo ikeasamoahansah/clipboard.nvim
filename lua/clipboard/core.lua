@@ -41,7 +41,7 @@ function M.show_clipboard(opts)
             sorter = config.generic_sorter(opts),
 
             previewer = previewers.new_buffer_previewer({
-                title = "Check Clipboard Entries",
+                title = "View Clipboard Entries",
                 define_preview = function(self, entry)
                     vim.api.nvim_buf_set_lines(self.state.bufnr, 0, -1, false, vim.split(entry.value, "\n"))
                     utils.highlighter(self.state.bufnr, "markdown")
