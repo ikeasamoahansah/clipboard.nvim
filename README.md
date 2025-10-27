@@ -37,7 +37,7 @@ end)
 ```
 
 ### Usage
-use ```:YankH ``` to view history of yanked scripts
+use ```:Yank``` to view history of yanked scripts
 
 ### Configuration
 ```lua
@@ -45,6 +45,6 @@ require("clipboard").setup({
   -- You can customize here
 
   history_size = 10, -- number of yanked scripts to store
-  command_yank_history = "YankH", -- custom command to open the clipboard menu
+  command_yank_history = "Yank", -- custom command to open the clipboard menu
 })
 ```
