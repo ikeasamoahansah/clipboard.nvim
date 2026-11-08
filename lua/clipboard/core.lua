@@ -6,9 +6,17 @@ function M.update_clipboard_history()
     local clipboard_content = vim.fn.getreg("0")
     local clipconf = require("clipboard.config")
     local history_size = clipconf.values.history_size
-    if clipboard_content ~= clipboard_history[1] then
-        table.insert(clipboard_history, 1, clipboard_content)
+    if clipboard_content == clipboard_history[1] then
+        return
     end
+    -- if this text was yanked before, move it to the front instead of duplicating it
+    for i, entry in ipairs(clipboard_history) do
+        if entry == clipboard_content then
+            table.remove(clipboard_history, i)
+            break
+        end
+    end
+    table.insert(clipboard_history, 1, clipboard_content)
     while #clipboard_history > history_size do
         table.remove(clipboard_history)
     end
@@ -33,7 +41,7 @@ function M.show_clipboard(opts)
                     local trimmed_entry = string.gsub(entry, "^%s*(.-)%s*$", "%1")
                     return {
                         value = entry,
-                        display = trimmed_entry:sub(1, 5),
+                        display = trimmed_entry:sub(1, 40),
                         ordinal = entry,
                     }
                 end,
