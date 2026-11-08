@@ -2,7 +2,7 @@
 
 <p align="center">A telescope-based picker of your recently yanked text</p>
 
-## ✨ Features
+## Features
 
 - Keeps a history of your most recent yanks in a telescope picker
 - Most recent yank first; re-yanking text **moves it to the front** instead of duplicating it
@@ -10,7 +10,7 @@
 - Select an entry with `<CR>` to restore it to the yank register, then paste it with `p` / `P`
 - Customizable history size and picker command
 
-## 📦 Requirements
+## Requirements
 
 - [Neovim](https://neovim.io/) (≥ 0.7)
 - [nvim-telescope/telescope.nvim](https://github.com/nvim-telescope/telescope.nvim)
